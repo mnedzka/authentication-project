@@ -8,9 +8,19 @@ export const signup = (formProps, callback) => async dispatch => {
       formProps
     );
 
-    dispatch({ type: AUTH_USER, payload: response.data.toen });
+    dispatch({ type: AUTH_USER, payload: response.data.token });
+    localStorage.setItem("TOKEN", response.data.token);
     callback();
   } catch (e) {
     dispatch({ type: AUTH_ERROR, payload: "email in use" });
   }
+};
+
+export const singout = () => {
+  localStorage.removeItem("TOKEN");
+
+  return {
+    type: AUTH_ERROR,
+    payload: ""
+  };
 };
